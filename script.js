@@ -17,11 +17,15 @@ fetch(`https://restcountries.com/v3.1/all`)
     const countries = data.map(elem => {
         return {country: elem.name.common, capital: elem.capital}
     });
-     questionOne.innerText = `What is the capital of ${countries[45].country}?`
-     
-    //display answer
+    console.log(countries);
+     questionOne.innerText = `What is the capital of ${countries[5].country}?`
+     answerOne.innerText = `${countries[5].capital}` 
     
 })
 
-//create function to display random country with capital 
+//create function to display random country
+
+//test user input against answer 
+
+
 
