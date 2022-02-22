@@ -1,7 +1,5 @@
 const questionOne = document.getElementById('country-question-one');
 const questionTwo = document.getElementById('country-question-two');
-const answerOne = document.getElementById('country-answer-one');
-const answerTwo = document.getElementById('country-answer-two');
 
 fetch(`https://restcountries.com/v3.1/all`)
   .then((response) => {
@@ -19,7 +17,7 @@ fetch(`https://restcountries.com/v3.1/all`)
     });
     const countryObject = randomCountry(countries);
     questionOne.innerText = `What is the capital of ${countryObject.country}?`
-    answerOne.innerText = `${countryObject.capital}`
+    // answerOne.innerText = `${countryObject.capital}`
 
   })
 
@@ -28,9 +26,15 @@ function randomCountry(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-//display user input
+function getInputValue() {
+  const inputVal = document.getElementById('user-input').value;
+  console.log(inputVal);
+}
 
 //test user input against answer and provide feedback if correct or not
+// function checkAnswer() {
+//   
+// }
 
 //display second question only after the input to the first one has been submitted
 

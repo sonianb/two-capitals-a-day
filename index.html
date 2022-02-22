@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +8,24 @@
     <title>Two Capitals a Day</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
+        <h1>Two Capitals a Day</h1>
 
     </header>
     <main>
-        <h1>Two Capitals a Day</h1>
         <section id="date">
-            
+
         </section>
 
         <section>
             <h2 id="country-question-one"></h2>
-            <p id="country-answer-one"></p>
+            <form id="form">
+                <label for="answer" id="answer-label"></label>
+                <input type="text" id="user-input" placeholder="Your answer..." autocomplete="off">
+                <button type="submit" onclick="getInputValue()" id="submit-btn">Submit</button>
+            </form>
         </section>
 
         <section>
@@ -38,4 +44,5 @@
     </footer>
     <script src="script.js"></script>
 </body>
+
 </html>
