@@ -24,10 +24,11 @@ fetch(`https://restcountries.com/v3.1/all`)
     submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       checkAnswer(answerInput.value, countryObject.capital)
+      giveupBtn.classList.remove('hide');
     });
     giveupBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      answerFeedback. innerText =`The correct answer is: ${countryObject.capital}`
+      answerFeedback. innerText =`The correct answer is: ${countryObject.capital}.`
     }
   )
 });
@@ -44,6 +45,8 @@ function checkAnswer(input, answer) {
     answerFeedback.innerText = "Try again."
   }
 }
+
+//handle upper and lower case edge cases
 
 //display second question only after the input to the first one has been submitted
 
