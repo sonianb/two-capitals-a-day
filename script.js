@@ -1,5 +1,8 @@
 const questionOne = document.getElementById('country-question-one');
 const questionTwo = document.getElementById('country-question-two');
+const answerFeedback = document.getElementById('answer-feedback');
+const submitBtn = document.getElementById('submit-btn');
+const answerInput = document.getElementById('user-input');
 
 fetch(`https://restcountries.com/v3.1/all`)
   .then((response) => {
@@ -17,24 +20,25 @@ fetch(`https://restcountries.com/v3.1/all`)
     });
     const countryObject = randomCountry(countries);
     questionOne.innerText = `What is the capital of ${countryObject.country}?`
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      checkAnswer(answerInput.value, countryObject.capital)
+    });
     // answerOne.innerText = `${countryObject.capital}`
 
   })
 
-//create function to display random country
 function randomCountry(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function getInputValue() {
-  const inputVal = document.getElementById('user-input').value;
-  console.log(inputVal);
+function checkAnswer(input, answer) {
+  if(answer.includes(input)) {
+    answerFeedback.innerText = "That's right!"
+  } else {
+    answerFeedback.innerText = "Try again."
+  }
 }
-
-//test user input against answer and provide feedback if correct or not
-// function checkAnswer() {
-//   
-// }
 
 //display second question only after the input to the first one has been submitted
 
