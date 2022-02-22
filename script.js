@@ -3,6 +3,7 @@ const questionTwo = document.getElementById('country-question-two');
 const answerFeedback = document.getElementById('answer-feedback');
 const submitBtn = document.getElementById('submit-btn');
 const answerInput = document.getElementById('user-input');
+const giveupBtn = document.getElementById('giveup-btn');
 
 fetch(`https://restcountries.com/v3.1/all`)
   .then((response) => {
@@ -24,16 +25,20 @@ fetch(`https://restcountries.com/v3.1/all`)
       e.preventDefault();
       checkAnswer(answerInput.value, countryObject.capital)
     });
-    // answerOne.innerText = `${countryObject.capital}`
-
-  })
+    giveupBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      answerFeedback. innerText =`The correct answer is: ${countryObject.capital}`
+    }
+  )
+});
+  
 
 function randomCountry(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
 function checkAnswer(input, answer) {
-  if(answer.includes(input)) {
+  if (answer.includes(input)) {
     answerFeedback.innerText = "That's right!"
   } else {
     answerFeedback.innerText = "Try again."
