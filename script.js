@@ -24,13 +24,15 @@ fetch(`https://restcountries.com/v3.1/all`)
     });
     const firstCountry = randomCountry(countries);
     displayQuestion(firstCountry);
-    nextBtn.addEventListener('click', () => {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       const secondCountry = randomCountry(countries);
-      questionTwo.innerText = `What is the capital of ${secondCountry.country}?`
+      displayQuestion(secondCountry);
+      giveupBtn.classList.add('hide');
+      answerInput.innerHTML = "";
+      answerFeedback.innerText = "";
     })
   });
-
-//if the answer is correct show second question or if the user clicks give up.
 
 function randomCountry(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -41,7 +43,7 @@ function checkAnswer(input, answers) {
   const lowercasedInput = input.toLowerCase();
   if (lowercasedAnswers.includes(lowercasedInput)) {
     answerFeedback.innerText = "That's right!"
-    questionTwoSection.classList.remove('hide');
+    nextBtn.classList.remove('hide');
   } else {
     answerFeedback.innerText = "Try again."
   }
@@ -57,6 +59,7 @@ function displayQuestion(country) {
   giveupBtn.addEventListener('click', (e) => {
     e.preventDefault();
     answerFeedback.innerText = `The correct answer is: ${country.capital}.`
+    nextBtn.classList.remove('hide');
   })
 }
 
