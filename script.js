@@ -5,6 +5,8 @@ const submitBtn = document.getElementById('submit-btn');
 const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const questionTwoSection = document.getElementById('question-two-section');
+const secondAnswerFeedback = document.getElementById('second-answer-feedback');
+const nextBtn = document.getElementById('next-btn');
 
 fetch(`https://restcountries.com/v3.1/all`)
   .then((response) => {
@@ -21,19 +23,11 @@ fetch(`https://restcountries.com/v3.1/all`)
       return {country: elem.name.common, capital: elem.capital}
     });
     const firstCountry = randomCountry(countries);
-    questionOne.innerText = `What is the capital of ${firstCountry.country}?`
-    submitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      checkAnswer(answerInput.value, firstCountry.capital)
-      giveupBtn.classList.remove('hide');
-    });
-    giveupBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      answerFeedback.innerText = `The correct answer is: ${firstCountry.capital}.`
-    }
-    )
-    const secondCountry = randomCountry(countries);
-    questionTwo.innerText = `What is the capital of ${secondCountry.country}?`
+    displayQuestion(firstCountry);
+    nextBtn.addEventListener('click', () => {
+      const secondCountry = randomCountry(countries);
+      questionTwo.innerText = `What is the capital of ${secondCountry.country}?`
+    })
   });
 
 //if the answer is correct show second question or if the user clicks give up.
@@ -53,6 +47,18 @@ function checkAnswer(input, answers) {
   }
 }
 
+function displayQuestion(country) {
+  questionOne.innerText = `What is the capital of ${country.country}?`
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    checkAnswer(answerInput.value, country.capital)
+    giveupBtn.classList.remove('hide');
+  });
+  giveupBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    answerFeedback.innerText = `The correct answer is: ${country.capital}.`
+  })
+}
 
 
 
