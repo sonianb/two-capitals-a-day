@@ -28,25 +28,25 @@ fetch(`https://restcountries.com/v3.1/all`)
     });
     giveupBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      answerFeedback. innerText =`The correct answer is: ${countryObject.capital}.`
+      answerFeedback.innerText = `The correct answer is: ${countryObject.capital}.`
     }
-  )
-});
-  
+    )
+  });
 
 function randomCountry(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function checkAnswer(input, answer) {
-  if (answer.includes(input)) {
+function checkAnswer(input, answers) {
+ const lowercasedAnswers = answers.map(answer => answer.toLowerCase());
+ const lowercasedInput = input.toLowerCase();
+  if (lowercasedAnswers.includes(lowercasedInput)) {
     answerFeedback.innerText = "That's right!"
   } else {
     answerFeedback.innerText = "Try again."
   }
 }
 
-//handle upper and lower case edge cases
 
 //display second question only after the input to the first one has been submitted
 
