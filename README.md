@@ -14,5 +14,6 @@ Learning the world capitals may seem like a daunting task but practice and repet
 ## Stretch goals
 1. Add facts about the capitals.
 2. Make a quiz to review previously-learnt world capitals.
+3. Add give a clue option, before give up.
 
 _Work in progress..._
