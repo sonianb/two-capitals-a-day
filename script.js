@@ -8,7 +8,7 @@ const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
 
-let questionIndex = 0;
+let questionIndex = parseInt(window.localStorage.getItem('questionIndex') ?? 0);
 let currentCountry = undefined; 
 
 // *************
@@ -42,7 +42,7 @@ function displayQuestion(country) {
   submitBtn.classList.remove('hide');
   giveupBtn.classList.add('hide');
   nextBtn.classList.add('hide');
-  questionOne.innerText = `What is the capital of ${country.country}?`
+  questionOne.innerText = `${questionIndex+1}. What is the capital of ${country.country}?`
 }
 
 submitBtn.addEventListener('click', (e) => {
@@ -80,6 +80,7 @@ fetch(`https://restcountries.com/v3.1/all`)
     nextBtn.addEventListener('click', (e) => {
       e.preventDefault();
       questionIndex = 1;
+      window.localStorage.setItem('questionIndex', questionIndex)
       const secondCountry = randomCountry(countries);
       currentCountry = secondCountry;
       displayQuestion(secondCountry);
