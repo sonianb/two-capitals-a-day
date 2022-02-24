@@ -8,6 +8,8 @@ const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
 
+let questionIndex = 0;
+
 // *************
 // * App logic *
 // *************
@@ -21,7 +23,9 @@ function checkAnswer(input, answers) {
   const lowercasedInput = input.toLowerCase();
   if (lowercasedAnswers.includes(lowercasedInput)) {
     answerFeedback.innerText = "That's right!"
-    nextBtn.classList.remove('hide');
+    if (questionIndex === 0) {
+      nextBtn.classList.remove('hide');
+    }
   }
   else if (input.length <= 0) {
     answerFeedback.innerText = "Please submit an answer first."
@@ -33,6 +37,7 @@ function checkAnswer(input, answers) {
 }
 
 function displayQuestion(country) {
+  nextBtn.classList.add('hide');
   questionOne.innerText = `What is the capital of ${country.country}?`
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -42,7 +47,10 @@ function displayQuestion(country) {
     e.preventDefault();
     answerFeedback.innerText = `The correct answer is: ${country.capital}.`
     submitBtn.classList.add('hide');
-    nextBtn.classList.remove('hide');
+    giveupBtn.classList.add('hide');
+    if (questionIndex === 0) {
+      nextBtn.classList.remove('hide');
+    }
   })
 }
 
@@ -65,6 +73,7 @@ fetch(`https://restcountries.com/v3.1/all`)
     displayQuestion(firstCountry);
     nextBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      questionIndex = 1;
       const secondCountry = randomCountry(countries);
       displayQuestion(secondCountry);
       giveupBtn.classList.add('hide');
@@ -73,3 +82,6 @@ fetch(`https://restcountries.com/v3.1/all`)
       submitBtn.classList.remove('hide');
     })
   });
+
+  //how to restrict countries shown to two countries a day?
+  //how to store them at the local storage?
