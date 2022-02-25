@@ -9,13 +9,13 @@ const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
 
 let gameData = JSON.parse(window.localStorage.getItem('gameData'));
-let currentCountry = undefined;
 
 if (!gameData) {
   gameData = {
     questionIndex: 0,
     country1: undefined,
     country2: undefined,
+    currentCountry: undefined,
     country1Outcome: undefined,
     country2Outcome: undefined,
   };
@@ -61,11 +61,11 @@ function displayQuestion(country) {
 
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  checkAnswer(answerInput.value, currentCountry.capital)
+  checkAnswer(answerInput.value, gameData.currentCountry.capital)
 });
 giveupBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  answerFeedback.innerText = `The correct answer is: ${currentCountry.capital}.`
+  answerFeedback.innerText = `The correct answer is: ${gameData.currentCountry.capital}.`
   submitBtn.classList.add('hide');
   giveupBtn.classList.add('hide');
   if (gameData.questionIndex === 0) {
@@ -93,21 +93,26 @@ function initGame() {
       gameData.country1 = randomCountry(countries);
       gameData.country2 = randomCountry(countries);
 
-      window.localStorage.setItem('gameData', JSON.stringify(gameData));
+      saveGameData();
       startGame();
     });
 }
 
 function startGame() {
-  currentCountry = gameData.country1;
-  displayQuestion(currentCountry);
+  gameData.currentCountry = gameData.country1;
+  displayQuestion(gameData.currentCountry);
   nextBtn.addEventListener('click', (e) => {
     e.preventDefault();
     gameData.questionIndex = 1;
 
-    currentCountry = gameData.country2;
-    displayQuestion(currentCountry);
+    gameData.currentCountry = gameData.country2;
+    saveGameData();
+    displayQuestion(gameData.currentCountry);
     answerInput.value = "";
     answerFeedback.innerText = "";
   })
+}
+
+function saveGameData() {
+  window.localStorage.setItem('gameData', JSON.stringify(gameData));
 }
