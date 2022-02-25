@@ -8,36 +8,22 @@ const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
 
-const savedData = JSON.parse(window.localStorage.getItem('gameData'));
+let gameData = JSON.parse(window.localStorage.getItem('gameData'));
+let currentCountry = undefined;
 
-console.log(savedData);
-
-if (!savedData) {
-  // I need to initialise the game
+if (!gameData) {
+  gameData = {
+    questionIndex: 0,
+    country1: undefined,
+    country2: undefined,
+    country1Outcome: undefined,
+    country2Outcome: undefined,
+  };
+  initGame();
 } else {
-  // restore data and continue
+
+  startGame();
 }
-
-
-const gameData = {
-  questionIndex: 0,
-  country1: undefined,
-  country2: undefined,
-  country1Outcome: undefined,
-  country2Outcome: undefined,
-};
-
-window.localStorage.setItem('gameData', JSON.stringify(gameData));
-
-let questionIndex = parseInt(window.localStorage.getItem('questionIndex'));
-
-if (!questionIndex) {
-  questionIndex = 0;
-}
-let currentCountry = undefined; 
-let restoredFirstCountry = JSON.parse(window.localStorage.getItem('firstCountry'));
-console.log(restoredFirstCountry);
-// console.log(restoredFirstCountry);
 
 // *************
 // * App logic *
@@ -53,7 +39,7 @@ function checkAnswer(input, answers) {
   if (lowercasedAnswers.includes(lowercasedInput)) {
     answerFeedback.innerText = "That's right!"
     submitBtn.classList.add('hide');
-    if (questionIndex === 0) {
+    if (gameData.questionIndex === 0) {
       nextBtn.classList.remove('hide');
     }
   }
@@ -70,7 +56,7 @@ function displayQuestion(country) {
   submitBtn.classList.remove('hide');
   giveupBtn.classList.add('hide');
   nextBtn.classList.add('hide');
-  questionOne.innerText = `${questionIndex+1}. What is the capital of ${country.country}?`
+  questionOne.innerText = `${gameData.questionIndex + 1}. What is the capital of ${country.country}?`
 }
 
 submitBtn.addEventListener('click', (e) => {
@@ -82,43 +68,46 @@ giveupBtn.addEventListener('click', (e) => {
   answerFeedback.innerText = `The correct answer is: ${currentCountry.capital}.`
   submitBtn.classList.add('hide');
   giveupBtn.classList.add('hide');
-  if (questionIndex === 0) {
+  if (gameData.questionIndex === 0) {
     nextBtn.classList.remove('hide');
   }
 })
 
 
-fetch(`https://restcountries.com/v3.1/all`)
-  .then((response) => {
-    if (!response.ok) {
-      const error = new Error(response.status);
-      throw error;
-    }
-    else {
-      return response.json();
-    }
-  })
-  .then((data) => {
-    const countries = data.map(elem => {
-      return {country: elem.name.common, capital: elem.capital}
-    });
-
-    const firstCountry = randomCountry(countries);
-    const secondCountry = randomCountry(countries);
-
-    window.localStorage.setItem('firstCountry', JSON.stringify(firstCountry));
-    window.localStorage.setItem('secondCountry', JSON.stringify(secondCountry));
-
-    currentCountry = firstCountry;
-    displayQuestion(firstCountry);
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      questionIndex = 1;
-      window.localStorage.setItem('questionIndex', questionIndex)
-      
-      currentCountry = secondCountry;
-      displayQuestion(secondCountry);
-      answerInput.value = "";
-      answerFeedback.innerText = "";
+function initGame() {
+  fetch(`https://restcountries.com/v3.1/all`)
+    .then((response) => {
+      if (!response.ok) {
+        const error = new Error(response.status);
+        throw error;
+      }
+      else {
+        return response.json();
+      }
     })
-  });
+    .then((data) => {
+      const countries = data.map(elem => {
+        return {country: elem.name.common, capital: elem.capital}
+      });
+
+      gameData.country1 = randomCountry(countries);
+      gameData.country2 = randomCountry(countries);
+
+      window.localStorage.setItem('gameData', JSON.stringify(gameData));
+      startGame();
+    });
+}
+
+function startGame() {
+  currentCountry = gameData.country1;
+  displayQuestion(currentCountry);
+  nextBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    gameData.questionIndex = 1;
+
+    currentCountry = gameData.country2;
+    displayQuestion(currentCountry);
+    answerInput.value = "";
+    answerFeedback.innerText = "";
+  })
+}
