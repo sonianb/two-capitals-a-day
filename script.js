@@ -13,15 +13,13 @@ let gameData = JSON.parse(window.localStorage.getItem('gameData'));
 if (!gameData) {
   gameData = {
     questionIndex: 0,
-    country1: undefined,
-    country2: undefined,
+    countries: undefined,
     currentCountry: undefined,
     country1Outcome: undefined,
     country2Outcome: undefined,
   };
   initGame();
 } else {
-
   startGame();
 }
 
@@ -39,9 +37,7 @@ function checkAnswer(input, answers) {
   if (lowercasedAnswers.includes(lowercasedInput)) {
     answerFeedback.innerText = "That's right!"
     submitBtn.classList.add('hide');
-    if (gameData.questionIndex === 0) {
-      nextBtn.classList.remove('hide');
-    }
+    nextBtn.classList.remove('hide');
   }
   else if (input.length <= 0) {
     answerFeedback.innerText = "Please submit an answer first."
@@ -52,10 +48,25 @@ function checkAnswer(input, answers) {
   }
 }
 
+function displayReview() {
+  answerInput.classList.add('hide');
+  submitBtn.classList.add('hide');
+  giveupBtn.classList.add('hide');
+  nextBtn.classList.add('hide');
+  answerInput.value = "";
+  answerFeedback.innerText = "";
+  questionOne.innerText = `That's all for today. You learned that
+   ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and that
+   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country} 
+   `;
+}
+
 function displayQuestion(country) {
   submitBtn.classList.remove('hide');
   giveupBtn.classList.add('hide');
   nextBtn.classList.add('hide');
+  answerInput.value = "";
+  answerFeedback.innerText = "";
   questionOne.innerText = `${gameData.questionIndex + 1}. What is the capital of ${country.country}?`
 }
 
@@ -68,8 +79,9 @@ giveupBtn.addEventListener('click', (e) => {
   answerFeedback.innerText = `The correct answer is: ${gameData.currentCountry.capital}.`
   submitBtn.classList.add('hide');
   giveupBtn.classList.add('hide');
+  nextBtn.classList.remove('hide');
   if (gameData.questionIndex === 0) {
-    nextBtn.classList.remove('hide');
+
   }
 })
 
@@ -90,8 +102,8 @@ function initGame() {
         return {country: elem.name.common, capital: elem.capital}
       });
 
-      gameData.country1 = randomCountry(countries);
-      gameData.country2 = randomCountry(countries);
+      gameData.countries = [randomCountry(countries), randomCountry(countries)];
+      gameData.currentCountry = gameData.countries[gameData.questionIndex];
 
       saveGameData();
       startGame();
@@ -99,20 +111,30 @@ function initGame() {
 }
 
 function startGame() {
-  gameData.currentCountry = gameData.country1;
-  displayQuestion(gameData.currentCountry);
+  if (gameData.currentCountry) {
+    displayQuestion(gameData.currentCountry);
+  } else {
+    displayReview()
+  }
+
   nextBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    gameData.questionIndex = 1;
+    gameData.questionIndex++;
 
-    gameData.currentCountry = gameData.country2;
+    gameData.currentCountry = gameData.countries[gameData.questionIndex];
     saveGameData();
-    displayQuestion(gameData.currentCountry);
-    answerInput.value = "";
-    answerFeedback.innerText = "";
+    if (gameData.currentCountry) {
+      displayQuestion(gameData.currentCountry);
+    } else {
+      displayReview()
+    }
   })
 }
 
 function saveGameData() {
   window.localStorage.setItem('gameData', JSON.stringify(gameData));
 }
+
+//Next steps: 
+//change btn text to show review after next question
+// Save the date in the local storage so new questions can be displayed the next day 
