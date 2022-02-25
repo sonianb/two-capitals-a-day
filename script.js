@@ -8,8 +8,36 @@ const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
 
-let questionIndex = parseInt(window.localStorage.getItem('questionIndex') ?? 0);
+const savedData = JSON.parse(window.localStorage.getItem('gameData'));
+
+console.log(savedData);
+
+if (!savedData) {
+  // I need to initialise the game
+} else {
+  // restore data and continue
+}
+
+
+const gameData = {
+  questionIndex: 0,
+  country1: undefined,
+  country2: undefined,
+  country1Outcome: undefined,
+  country2Outcome: undefined,
+};
+
+window.localStorage.setItem('gameData', JSON.stringify(gameData));
+
+let questionIndex = parseInt(window.localStorage.getItem('questionIndex'));
+
+if (!questionIndex) {
+  questionIndex = 0;
+}
 let currentCountry = undefined; 
+let restoredFirstCountry = JSON.parse(window.localStorage.getItem('firstCountry'));
+console.log(restoredFirstCountry);
+// console.log(restoredFirstCountry);
 
 // *************
 // * App logic *
@@ -74,14 +102,20 @@ fetch(`https://restcountries.com/v3.1/all`)
     const countries = data.map(elem => {
       return {country: elem.name.common, capital: elem.capital}
     });
+
     const firstCountry = randomCountry(countries);
+    const secondCountry = randomCountry(countries);
+
+    window.localStorage.setItem('firstCountry', JSON.stringify(firstCountry));
+    window.localStorage.setItem('secondCountry', JSON.stringify(secondCountry));
+
     currentCountry = firstCountry;
     displayQuestion(firstCountry);
     nextBtn.addEventListener('click', (e) => {
       e.preventDefault();
       questionIndex = 1;
       window.localStorage.setItem('questionIndex', questionIndex)
-      const secondCountry = randomCountry(countries);
+      
       currentCountry = secondCountry;
       displayQuestion(secondCountry);
       answerInput.value = "";
