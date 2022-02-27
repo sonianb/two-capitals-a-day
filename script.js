@@ -10,7 +10,7 @@ const nextBtn = document.getElementById('next-btn');
 
 let gameData = JSON.parse(window.localStorage.getItem('gameData'));
 
-if (!gameData || isOutdated(gameData.data)) {
+if (!gameData || isOutdated(gameData.date)) {
   gameData = {
     questionIndex: 0,
     countries: undefined,
@@ -136,11 +136,8 @@ function saveGameData() {
   window.localStorage.setItem('gameData', JSON.stringify(gameData));
 }
 
+//function that will be used to determine if a new questions should be displayed  
 function isOutdated(date) {
   const currentDate = new Date();
-  return currentDate !== date
+  return currentDate.toISOString().slice(0,10) !== date.slice(0,10);
 }
-
-//Next steps: 
-//change btn text to show review after next question
-// Save the date in the local storage so new questions can be displayed the next day 
