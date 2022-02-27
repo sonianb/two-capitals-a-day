@@ -10,13 +10,14 @@ const nextBtn = document.getElementById('next-btn');
 
 let gameData = JSON.parse(window.localStorage.getItem('gameData'));
 
-if (!gameData) {
+if (!gameData || isOutdated(gameData.data)) {
   gameData = {
     questionIndex: 0,
     countries: undefined,
     currentCountry: undefined,
     country1Outcome: undefined,
     country2Outcome: undefined,
+    date: new Date()
   };
   initGame();
 } else {
@@ -133,6 +134,11 @@ function startGame() {
 
 function saveGameData() {
   window.localStorage.setItem('gameData', JSON.stringify(gameData));
+}
+
+function isOutdated(date) {
+  const currentDate = new Date();
+  return currentDate !== date
 }
 
 //Next steps: 
