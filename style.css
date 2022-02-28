@@ -1,7 +1,17 @@
 :root {
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    --primary-color: #cccfff;
+    --secondary-color: #552A72;
 }
+
+
 
 .hide {
     display: none;
+}
+
+.buttons {
+    font-family: inherit;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
