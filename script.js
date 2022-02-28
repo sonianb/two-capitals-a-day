@@ -56,10 +56,10 @@ function displayReview() {
   nextBtn.classList.add('hide');
   answerInput.value = "";
   answerFeedback.innerText = "";
+  questionOne.innerText = "";
   answerFeedback.innerText = `That's all for today. You learned that
    ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and that
-   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country} 
-   . Don't forget to come back tomorrow for more.`;
+   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. Don't forget to come back tomorrow for more.`;
 }
 
 function displayQuestion(country) {
@@ -141,3 +141,4 @@ function isOutdated(date) {
   const currentDate = new Date();
   return currentDate.toISOString().slice(0, 10) !== date.slice(0, 10);
 }
+
