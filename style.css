@@ -1,6 +1,6 @@
 :root {
     font-family: 'Quicksand', sans-serif;
-    --primary-color: #cccfff;
+    --primary-color: #a7abe6;
     --secondary-color: #552A72;
 }
 
@@ -8,9 +8,15 @@
     box-sizing: border-box;
 }
 
-h1 {
+header {
     display: flex;
     justify-content: center;
+    background-color: #a2cff3;
+    max-width: 960px;
+    border-radius: 8px;
+    margin: 0 auto;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .center-container {
@@ -22,6 +28,8 @@ h1 {
     align-items: center;
     background-color: #cccfff;
     border-radius: 8px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .hide {
@@ -30,6 +38,18 @@ h1 {
 
 .buttons {
     font-family: inherit;
-    background-color: var(--primary-color);
     color: var(--secondary-color);
+    padding: 12px;
+    font-weight: 900;
+    background-color: white;
+}
+
+#user-input {
+    font-family: inherit;
+    padding: 12px;
+    color: var(--secondary-color);
+}
+
+#user-inpu:focus {
+    border: 2px solid var(--secondary-color);
 }
