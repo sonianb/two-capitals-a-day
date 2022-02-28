@@ -4,7 +4,25 @@
     --secondary-color: #552A72;
 }
 
+* {
+    box-sizing: border-box;
+}
 
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.center-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background-color: #cccfff;
+    border-radius: 8px;
+}
 
 .hide {
     display: none;
