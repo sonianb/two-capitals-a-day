@@ -23,9 +23,6 @@ if (!gameData || isOutdated(gameData.date)) {
   startGame();
 }
 
-//when someone answers, save the answer and push it inside alreadyAnswered
-//display previous answers using DOM manipulation (country, capital, answer right or wrong) { capital: '', country: '', right: true}
-
 // *************
 // * App logic *
 // *************
@@ -35,12 +32,13 @@ function randomCountry(arr) {
 }
 
 function checkAnswer(input, answers) {
-  const clearAnswers = answers.map(answer => answer.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, ""));
-  const clearInput = input.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
-  if (clearAnswers.includes(clearInput)) {
+  const simplifiedAnswers = answers.map(answer => answer.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, ""));
+  const simplifiedInput = input.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  if (simplifiedAnswers.includes(simplifiedInput)) {
     answerFeedback.innerText = "That's right!"
     submitBtn.classList.add('hide');
     nextBtn.classList.remove('hide');
+    gameData.alreadyAnswered.push({ country: gameData.currentCountry.country , capitals: answers, correct: true});
   }
   else if (input.length <= 0) {
     answerFeedback.innerText = "Please submit an answer first."
@@ -65,6 +63,7 @@ function displayReview() {
 }
 
 function displayQuestion(country) {
+  answerInput.disabled = false;
   submitBtn.classList.remove('hide');
   giveupBtn.classList.add('hide');
   nextBtn.classList.add('hide');
@@ -84,9 +83,7 @@ giveupBtn.addEventListener('click', (e) => {
   giveupBtn.classList.add('hide');
   nextBtn.classList.remove('hide');
   answerInput.disabled = true;
-  if (gameData.questionIndex === 0) {
-
-  }
+  gameData.alreadyAnswered.push({ country: gameData.currentCountry.country , capitals: gameData.currentCountry.capital, correct: false}); 
 })
 
 
@@ -145,3 +142,6 @@ function isOutdated(date) {
   return currentDate.toISOString().slice(0, 10) !== date.slice(0, 10);
 }
 
+//Next steps:
+//display previous answers using DOM manipulation (country, capital, answer right or wrong). Use a table maybe?
+//how to handle countries that don't have a capital?
