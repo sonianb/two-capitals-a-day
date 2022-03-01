@@ -14,15 +14,17 @@ if (!gameData || isOutdated(gameData.date)) {
   gameData = {
     questionIndex: 0,
     countries: undefined,
+    alreadyAnswered: gameData?.alreadyAnswered ?? [], //keep on reset, if gameData/value is undefined, create a new array
     currentCountry: undefined,
-    country1Outcome: undefined,
-    country2Outcome: undefined,
     date: new Date()
   };
   initGame();
 } else {
   startGame();
 }
+
+//when someone answers, save the answer and push it inside alreadyAnswered
+//display previous answers using DOM manipulation (country, capital, answer right or wrong) { capital: '', country: '', right: true}
 
 // *************
 // * App logic *
@@ -81,6 +83,7 @@ giveupBtn.addEventListener('click', (e) => {
   submitBtn.classList.add('hide');
   giveupBtn.classList.add('hide');
   nextBtn.classList.remove('hide');
+  answerInput.disabled = true;
   if (gameData.questionIndex === 0) {
 
   }
