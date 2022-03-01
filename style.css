@@ -1,7 +1,7 @@
 :root {
     font-family: 'Quicksand', sans-serif;
-    --primary-color: #a7abe6;
-    --secondary-color: #552A72;
+    --primary-color: #f18685;
+    --secondary-color: #d4f4cd;
 }
 
 * {
@@ -11,8 +11,8 @@
 header {
     display: flex;
     justify-content: center;
-    background-color: #a2cff3;
-    max-width: 960px;
+    background-color: var(--primary-color);
+    max-width: 760px;
     border-radius: 8px;
     margin: 0 auto;
     border-bottom-right-radius: 0;
@@ -20,13 +20,13 @@ header {
 }
 
 .center-container {
-    max-width: 960px;
+    max-width: 760px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-flow: column;
     align-items: center;
-    background-color: #cccfff;
+    background-color: var(--secondary-color);
     border-radius: 8px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -38,18 +38,14 @@ header {
 
 .buttons {
     font-family: inherit;
-    color: var(--secondary-color);
     padding: 12px;
     font-weight: 900;
-    background-color: white;
+    background-color: #f3f3f3;
+    border-radius: 8px;
 }
 
 #user-input {
     font-family: inherit;
     padding: 12px;
-    color: var(--secondary-color);
-}
-
-#user-inpu:focus {
-    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
 }
