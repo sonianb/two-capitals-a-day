@@ -33,9 +33,9 @@ function randomCountry(arr) {
 }
 
 function checkAnswer(input, answers) {
-  const lowercasedAnswers = answers.map(answer => answer.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, ""));
-  const lowercasedInput = input.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
-  if (lowercasedAnswers.includes(lowercasedInput)) {
+  const clearAnswers = answers.map(answer => answer.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, ""));
+  const clearInput = input.toLowerCase().replace(/-/g, "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  if (clearAnswers.includes(clearInput)) {
     answerFeedback.innerText = "That's right!"
     submitBtn.classList.add('hide');
     nextBtn.classList.remove('hide');
