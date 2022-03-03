@@ -7,6 +7,7 @@ const submitBtn = document.getElementById('submit-btn');
 const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
+const reviewMessage = document.getElementById('review-message')
 
 let gameData = JSON.parse(window.localStorage.getItem('gameData'));
 
@@ -19,6 +20,7 @@ if (!gameData || isOutdated(gameData.date)) {
     date: new Date()
   };
   initGame();
+  console.log(alreadyAnswered[1]);
 } else {
   startGame();
 }
@@ -60,6 +62,15 @@ function displayReview() {
   answerFeedback.innerText = `That's all for today. You learned that
    ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and that
    ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. Don't forget to come back tomorrow for more.`;
+}
+
+function displayPreviousAnswers() {
+  //remove everything inside the parent div
+  gameData.alreadyAnswered.forEach(element => {
+    //create a new div for each answer, set inner HTML, element.country, element.capitals, use element.correct
+    //append child to parent div
+  });
+
 }
 
 function displayQuestion(country) {
@@ -116,6 +127,7 @@ function startGame() {
     displayQuestion(gameData.currentCountry);
   } else {
     displayReview()
+    displayPreviousAnswers()
   }
 
   nextBtn.addEventListener('click', (e) => {
@@ -141,6 +153,7 @@ function isOutdated(date) {
   const currentDate = new Date();
   return currentDate.toISOString().slice(0, 10) !== date.slice(0, 10);
 }
+
 
 //Next steps:
 //display previous answers using DOM manipulation (country, capital, answer right or wrong). Use a table maybe?
