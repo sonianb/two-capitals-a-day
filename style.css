@@ -27,9 +27,9 @@ header {
     flex-flow: column;
     align-items: center;
     background-color: var(--secondary-color);
-    border-radius: 8px;
+    /* border-radius: 8px;
     border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top-right-radius: 0; */
     height: 10rem;
 }
 
@@ -49,4 +49,18 @@ header {
     font-family: inherit;
     padding: 12px;
     border-radius: 8px;
+}
+
+.style-previous-answers {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    background-color: #f18685;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0.5rem;
 }

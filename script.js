@@ -71,8 +71,9 @@ function displayReview() {
 function displayPreviousAnswers() {
   gameData.alreadyAnswered.forEach(element => {
     const newElem = document.createElement('div');
-    newElem.innerText = `You've learned that ${element.capitals} is the capital of ${element.country}.`
+    newElem.innerText = `${element.country}: ${element.capitals}`
     reviewMessage.appendChild(newElem);
+    reviewMessage.classList.add('style-previous-answers')
   });
 }
 
