@@ -59,10 +59,14 @@ function displayReview() {
   answerInput.value = "";
   answerFeedback.innerText = "";
   questionOne.innerText = "";
-  answerFeedback.innerText = `That's all for today. You learned that
-   ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and that
-   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. Don't forget to come back tomorrow for more.`;
+  answerFeedback.innerText = `That's all for today. 
+  Now you know that ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and
+   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. 
+   Come back tomorrow to learn two more national capitals.`;
 }
+
+//add toggle feature to allow users to review previous answers
+//
 
 function displayPreviousAnswers() {
   gameData.alreadyAnswered.forEach(element => {
