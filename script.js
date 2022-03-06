@@ -40,7 +40,7 @@ function checkAnswer(input, answers) {
     answerFeedback.innerText = "That's right!"
     submitBtn.classList.add('hide');
     nextBtn.classList.remove('hide');
-    gameData.alreadyAnswered.push({ country: gameData.currentCountry.country , capitals: answers, correct: true});
+    gameData.alreadyAnswered.push({country: gameData.currentCountry.country, capitals: answers, correct: true});
   }
   else if (input.length <= 0) {
     answerFeedback.innerText = "Please submit an answer first."
@@ -65,13 +65,17 @@ function displayReview() {
 }
 
 function displayPreviousAnswers() {
-  //remove everything inside the parent div
   gameData.alreadyAnswered.forEach(element => {
-    //create a new div for each answer, set inner HTML, element.country, element.capitals, use element.correct
-    //append child to parent div
+    const newElem = document.createElement('div');
+    newElem.innerText = `You've learned that ${element.capitals} is the capital of ${element.country}.`
+    reviewMessage.appendChild(newElem);
   });
 
 }
+
+//display timer-when the next country/question will be available 
+
+//
 
 function displayQuestion(country) {
   answerInput.disabled = false;
@@ -94,7 +98,7 @@ giveupBtn.addEventListener('click', (e) => {
   giveupBtn.classList.add('hide');
   nextBtn.classList.remove('hide');
   answerInput.disabled = true;
-  gameData.alreadyAnswered.push({ country: gameData.currentCountry.country , capitals: gameData.currentCountry.capital, correct: false}); 
+  gameData.alreadyAnswered.push({country: gameData.currentCountry.country, capitals: gameData.currentCountry.capital, correct: false});
 })
 
 
@@ -140,6 +144,7 @@ function startGame() {
       displayQuestion(gameData.currentCountry);
     } else {
       displayReview()
+      displayPreviousAnswers();
     }
   })
 }
@@ -153,8 +158,3 @@ function isOutdated(date) {
   const currentDate = new Date();
   return currentDate.toISOString().slice(0, 10) !== date.slice(0, 10);
 }
-
-
-//Next steps:
-//display previous answers using DOM manipulation (country, capital, answer right or wrong). Use a table maybe?
-//how to handle countries that don't have a capital?
