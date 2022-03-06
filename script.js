@@ -70,7 +70,6 @@ function displayPreviousAnswers() {
     newElem.innerText = `You've learned that ${element.capitals} is the capital of ${element.country}.`
     reviewMessage.appendChild(newElem);
   });
-
 }
 
 //display timer-when the next country/question will be available 
@@ -78,6 +77,7 @@ function displayPreviousAnswers() {
 //
 
 function displayQuestion(country) {
+  reviewMessage.innerText = "";
   answerInput.disabled = false;
   submitBtn.classList.remove('hide');
   giveupBtn.classList.add('hide');
