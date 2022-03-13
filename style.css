@@ -22,15 +22,11 @@ header {
 .center-container {
     max-width: 760px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 8px;
     display: flex;
     flex-flow: column;
     align-items: center;
     background-color: var(--secondary-color);
-    /* border-radius: 8px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0; */
-    height: 10rem;
 }
 
 .hide {
@@ -43,6 +39,8 @@ header {
     font-weight: 900;
     background-color: #f3f3f3;
     border-radius: 8px;
+    border-color: var(--secondary-color);
+
 }
 
 #user-input {
@@ -63,4 +61,9 @@ header {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 0.5rem;
+}
+
+#review-btn {
+    width: 8rem;
+    border-color: var(--primary-color);
 }
