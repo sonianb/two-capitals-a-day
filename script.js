@@ -7,7 +7,9 @@ const submitBtn = document.getElementById('submit-btn');
 const answerInput = document.getElementById('user-input');
 const giveupBtn = document.getElementById('giveup-btn');
 const nextBtn = document.getElementById('next-btn');
-const reviewMessage = document.getElementById('review-message')
+const reviewMessage = document.getElementById('review-message');
+const toggleSection = document.getElementById('toggle-container');
+const reviewBtn = document.getElementById('review-btn')
 
 let gameData = JSON.parse(window.localStorage.getItem('gameData'));
 
@@ -65,8 +67,21 @@ function displayReview() {
    Come back tomorrow to learn two more national capitals.`;
 }
 
-//add toggle feature to allow users to review previous answers
-//
+//toggle review button
+let clicked = false;
+function toggleReview() {
+  clicked = !clicked;
+  if (clicked) {
+    reviewMessage.classList.remove('hide')
+  } else {
+    reviewMessage.classList.add('hide')
+  }
+}
+
+reviewBtn.addEventListener('click', toggleReview);
+
+//Show review btn at the end only?
+
 
 function displayPreviousAnswers() {
   gameData.alreadyAnswered.forEach(element => {
