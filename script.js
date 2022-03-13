@@ -68,13 +68,14 @@ function displayReview() {
 }
 
 //toggle review button
-let clicked = false;
+let reviewVisible = false;
 function toggleReview() {
-  clicked = !clicked;
-  if (clicked) {
-    reviewMessage.classList.remove('hide')
+  reviewVisible = !reviewVisible;
+  if (reviewVisible) {
+    reviewMessage.classList.remove('hide');
+    displayPreviousAnswers()
   } else {
-    reviewMessage.classList.add('hide')
+    reviewMessage.classList.add('hide');
   }
 }
 
@@ -84,6 +85,7 @@ reviewBtn.addEventListener('click', toggleReview);
 
 
 function displayPreviousAnswers() {
+  reviewMessage.innerHTML = "";
   gameData.alreadyAnswered.forEach(element => {
     const newElem = document.createElement('div');
     newElem.innerText = `${element.country}: ${element.capitals}`
@@ -151,7 +153,7 @@ function startGame() {
     displayQuestion(gameData.currentCountry);
   } else {
     displayReview()
-    displayPreviousAnswers()
+    // displayPreviousAnswers()
   }
 
   nextBtn.addEventListener('click', (e) => {
@@ -164,7 +166,7 @@ function startGame() {
       displayQuestion(gameData.currentCountry);
     } else {
       displayReview()
-      displayPreviousAnswers();
+      // displayPreviousAnswers();
     }
   })
 }
