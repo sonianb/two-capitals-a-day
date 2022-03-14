@@ -61,8 +61,13 @@ function displayReview() {
   answerInput.value = "";
   answerFeedback.innerText = "";
   questionOne.innerText = "";
+  setInterval(() => {
+    answerFeedback.innerText = `That's all for today. 
+  The next two countries will be available in: ${createTimer()}.`
+  }, 1000)
+
   answerFeedback.innerText = `That's all for today. 
-  The next two countries will be available in: ${createTimer()}`
+  The next two countries will be available in: ${createTimer()}.`
   // Now you know that ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and
   //  ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. 
   //  Come back tomorrow to learn two more national capitals.`;
