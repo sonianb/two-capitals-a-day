@@ -62,9 +62,10 @@ function displayReview() {
   answerFeedback.innerText = "";
   questionOne.innerText = "";
   answerFeedback.innerText = `That's all for today. 
-  Now you know that ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and
-   ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. 
-   Come back tomorrow to learn two more national capitals.`;
+  The next two countries will be available in: ${createTimer()}`
+  // Now you know that ${gameData.countries[0].capital} is the capital of ${gameData.countries[0].country} and
+  //  ${gameData.countries[1].capital} is the capital of ${gameData.countries[1].country}. 
+  //  Come back tomorrow to learn two more national capitals.`;
 }
 
 //toggle review button
@@ -93,10 +94,6 @@ function displayPreviousAnswers() {
     reviewMessage.classList.add('style-previous-answers')
   });
 }
-
-//display timer-when the next country/question will be available 
-
-//
 
 function displayQuestion(country) {
   reviewMessage.innerText = "";
@@ -179,4 +176,10 @@ function saveGameData() {
 function isOutdated(date) {
   const currentDate = new Date();
   return currentDate.toISOString().slice(0, 10) !== date.slice(0, 10);
+}
+
+
+//display timer-when the next country/question will be available 
+function createTimer() {
+  return 'Hello'
 }
