@@ -181,5 +181,14 @@ function isOutdated(date) {
 
 //display timer-when the next country/question will be available 
 function createTimer() {
-  return 'Hello'
+  const currentDate = new Date();
+  let hours = 23 - currentDate.getHours();
+  let minutes = 59 - currentDate.getMinutes();
+  let seconds = 59 - currentDate.getSeconds();
+  return `${zeroPad(hours)}:${zeroPad(minutes)}:${zeroPad(seconds)}`
 }
+
+//if number has one character, add a leading 0
+function zeroPad(num) {
+  return String(num).padStart(2, '0')
+} 
